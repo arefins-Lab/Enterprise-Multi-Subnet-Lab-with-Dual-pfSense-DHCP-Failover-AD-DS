@@ -1,1 +1,7 @@
-
+Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+Install-ADDSForest -DomainName "lab.local" -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force)
+Add-DnsServerPrimaryZone -Name "lab.local" -ReplicationScope "Forest"
+Add-DnsServerPrimaryZone -NetworkId "192.168.1.0/24" -ReplicationScope "Forest"
+Set-DnsServerForwarder -IPAddress 8.8.8.8
+Add-DhcpServerv4Scope -Name "Client-Scope" -StartRange 192.168.2.50 -EndRange 192.168.2.200 -SubnetMask 255.255.255.0
+Add-DhcpServerv4Failover -Name "LAB-FO" -PartnerServer "DC2.lab.local" -ScopeId 192.168.2.0 -LoadBalancePercent 50
