@@ -1,159 +1,164 @@
-# Enterprise Multi‑Subnet Lab Architecture  
-pfsense-windows-enterprise-architecture/
-│
-├── README.md
-│
-├── diagrams/
-│   ├── network-topology.png
-│   ├── routing-flow.png
-│   └── dhcp-failover.png
-│
-├── configs/
-│   ├── pfsense-edge.conf
-│   └── pfsense-internal-router.conf
-│
-├── scripts/
-│   ├── ad-dns-setup.ps1
-│   ├── dhcp-setup.ps1
-│   └── dhcp-failover.ps1
-│
-└── notes/
-    └── validation-checklist.txt
+Enterprise Multi‑Subnet Network Design & Implementation
+This project delivers a fully documented, enterprise‑style multi‑subnet network architecture built using pfSense, Windows Server, and routed segmentation. The environment replicates real‑world design principles, including perimeter security, internal routing, centralized identity services, DHCP failover, and multi‑subnet communication. All components have been configured, validated, and documented following production‑grade standards to ensure clarity, scalability, and reproducibility.
 
-    # Enterprise Multi‑Subnet Lab  
-Dual pfSense • DHCP Failover • Active Directory • DNS
+Architecture Overview
+The network follows a structured, layered design aligned with enterprise deployment practices. The architecture consists of:
 
-A complete enterprise-style lab environment featuring:
+Edge Firewall providing perimeter security, NAT, and upstream routing
 
-- pfSense Edge Firewall (192.168.0.45)
-- pfSense Internal Router (192.168.0.50 → 192.168.1.1 / 192.168.2.1)
-- Two routed subnets:
-  - 192.168.1.0/24 (Servers + Clients)
-  - 192.168.2.0/24 (Clients)
-- Windows Server AD DS + DNS (192.168.1.210)
-- DHCP failover across both subnets:
-  - DHCP-SRV01: 192.168.1.215
-  - DHCP-SRV02: 192.168.2.220
-- Domain‑joined Windows clients
+Internal Router enabling routed segmentation across multiple subnets
 
-All configuration files and automation scripts are included.
+Core Services, including Active Directory, DNS, and DHCP, failover
 
----
+Client Networks are distributed across two routed subnets with centralized identity and addressing
 
-## Network Diagram
+This design ensures predictable behaviour, simplified management, and realistic operational workflows.
 
-`/diagrams/network-topology.png`
+Core Components
+pfSense Edge Firewall
+The edge firewall acts as the perimeter security layer and upstream gateway for the internal network.
 
----
+WAN IP: 192.168.0.45
 
-## IP Summary
+Upstream Gateway: 192.168.0.1
 
-| Device | IP | Notes |
-|--------|-----|--------|
-| Main Router | 192.168.0.1 | Upstream gateway |
-| pfSense Edge | 192.168.0.45 | WAN |
-| pfSense Internal Router | 192.168.0.50 | WAN |
-| LAN1 Gateway | 192.168.1.1 | Subnet 1 |
-| LAN2 Gateway | 192.168.2.1 | Subnet 2 |
-| Domain Controller | 192.168.1.210 | DNS |
-| DHCP-SRV01 | 192.168.1.215 | Primary DHCP |
-| DHCP-SRV02 | 192.168.2.220 | Failover DHCP |
+Responsibilities: NAT, WAN routing, internal network access control
 
----
+pfSense Internal Router
+The internal router provides segmentation and routing between multiple internal subnets.
 
-## DHCP Scopes
+WAN IP: 192.168.0.50
 
-- 192.168.1.100–250  
-- 192.168.2.100–250  
+LAN Gateways:
 
-Both DHCP servers serve both scopes.
+192.168.1.1 — Subnet 1
 
----
+192.168.2.1 — Subnet 2
 
-## Scripts
+Responsibilities: inter‑subnet routing, internal traffic control
 
-Located in `/scripts/`:
+Subnets
+The network is divided into two routed subnets:
 
-- `ad-dns-setup.ps1` — AD DS + DNS deployment  
-- `dhcp-setup.ps1` — DHCP scopes + options  
-- `dhcp-failover.ps1` — DHCP failover configuration  
+192.168.1.0/24 — Servers + Clients
 
----
+192.168.2.0/24 — Clients
 
-## pfSense Configs
+Windows Server Infrastructure
+The core identity and addressing services are hosted on Windows Server.
 
-Located in `/configs/`:
+Domain Controller + DNS: 192.168.1.210
 
-- `pfsense-edge.conf`  
-- `pfsense-internal-router.conf`  
+DHCP Failover Pair:
 
----
+DHCP‑SRV01: 192.168.1.215
 
-## Purpose
+DHCP‑SRV02: 192.168.2.220
 
-This lab demonstrates:
+All configuration files and automation scripts are included for full reproducibility.
 
-- Routed segmentation  
-- DHCP failover  
-- Centralized DNS  
-- Multi‑subnet communication  
-- Realistic enterprise topology  
+Network Diagram
+The primary network topology diagram illustrates the full architecture, including:
 
-pfSense Config Files 
-# pfSense Edge Firewall
-wan_ip="192.168.0.45"
-wan_gw="192.168.0.1"
+Edge firewall placement
 
-nat_outbound="hybrid"
-nat_rule_lan1="192.168.1.0/24 → WAN"
-nat_rule_lan2="192.168.2.0/24 → WAN"
+Internal routing flow
 
-allow_internal="192.168.1.0/24, 192.168.2.0/24 → ANY"
-# pfSense Internal Router
-wan_ip="192.168.0.50"
-wan_gw="192.168.0.45"
+Subnet segmentation
 
-lan1_ip="192.168.1.1/24"
-lan2_ip="192.168.2.1/24"
+DHCP failover structure
 
-allow_lan1="192.168.1.0/24 → ANY"
-allow_lan2="192.168.2.0/24 → ANY"
+The diagram is included in the diagrams directory.
+
+IP Address Summary
+Device	            IP Address	    Notes
+Main Router	        192.168.0.1	    Upstream gateway
+pfSense Edge	    192.168.0.45	WAN
+pfSense Internal	192.168.0.50	WAN
+LAN1 Gateway	    192.168.1.1	    Subnet 1
+LAN2 Gateway	    192.168.2.1	    Subnet 2
+Domain Controller   192.168.1.210	DNS + AD DS
+DHCP‑SRV01	        192.168.1.215	Primary DHCP
+DHCP‑SRV02	        192.168.2.220	Failover DHCP
+DHCP Scopes
+Two DHCP scopes are configured to support both routed subnets:
+
+192.168.1.100 – 192.168.1.250
+
+192.168.2.100 – 192.168.2.250
+
+Both DHCP servers participate in a failover pair and serve both scopes for redundancy and high availability.
+
+Automation Scripts
+The project includes PowerShell automation scripts to streamline deployment and reduce manual configuration errors.
+
+Active Directory + DNS Deployment
+
+DHCP Scope Creation
+
+DHCP Failover Configuration
+
+These scripts ensure a consistent, repeatable setup across environments.
+
+pfSense Configuration
+Configuration files for both the edge firewall and internal router are included. They define:
+
+WAN and LAN interface assignments
+
+Outbound NAT rules
+
+Internal routing policies
+
+Firewall allows rules
+
+These files provide a complete reference for restoring or replicating the firewall configuration.
+
+Windows Server Configuration
+Active Directory + DNS
+The AD DS and DNS configuration includes:
+
+Installing required roles
+
+Creating a new forest
+
+Configuring DNS forwarders
+
+DHCP + Failover
+The DHCP configuration includes:
+
+Installing the DHCP role
+
+Creating scopes for both subnets
+
+Setting DNS and gateway options
+
+Establishing a failover partnership
+
+This ensures resilient IP address management across the network.
+
+Validation Checklist
+The following validation steps confirm that the environment is fully functional:
+
+✅ Edge firewall reachable
+
+✅ Internal router reachable
+
+✅ LAN1 gateway reachable
+
+✅ LAN2 gateway reachable
+
+✅ DNS resolves internal and external queries
+
+✅ DHCP scopes active
+
+✅ DHCP failover state: Normal
+
+✅ Clients receive the correct gateway and DNS
+
+✅ Domain join successful
 
 
-Install-WindowsFeature AD-Domain-Services, DNS -IncludeManagementTools
-
-Install-ADDSForest `
-  -DomainName "lab.local" `
-  -DomainNetbiosName "LAB" `
-  -SafeModeAdministratorPassword (ConvertTo-SecureString "Password123" -AsPlainText -Force) `
-  -Force
-
-Set-DnsServerForwarder -IPAddress 8.8.8.8,1.1.1.1
-
-Install-WindowsFeature DHCP -IncludeManagementTools
-Add-DhcpServerInDC -DnsName "dhcp01.lab.local" -IpAddress 192.168.1.215
-
-Add-DhcpServerv4Scope -Name "LAN1" -StartRange 192.168.1.100 -EndRange 192.168.1.250 -SubnetMask 255.255.255.0
-Set-DhcpServerv4OptionValue -ScopeId 192.168.1.0 -DnsServer 192.168.1.210 -Router 192.168.1.1
-
-Add-DhcpServerv4Scope -Name "LAN2" -StartRange 192.168.2.100 -EndRange 192.168.2.250 -SubnetMask 255.255.255.0
-Set-DhcpServerv4OptionValue -ScopeId 192.168.2.0 -DnsServer 192.168.1.210 -Router 192.168.2.1
-
-Add-DhcpServerv4Failover `
-  -Name "DHCP-FO" `
-  -PartnerServer "192.168.2.220" `
-  -ScopeId 192.168.1.0,192.168.2.0 `
-  -LoadBalancePercent 50 `
-  -SharedSecret "Password123"
 
 
-[✔] pfSense Edge WAN reachable
-[✔] pfSense Internal Router WAN reachable
-[✔] LAN1 gateway reachable
-[✔] LAN2 gateway reachable
-[✔] DNS resolves internal + external
-[✔] DHCP scopes active
-[✔] DHCP failover state: Normal
-[✔] Clients receive correct gateway + DNS
-[✔] Domain join successful
+
 
