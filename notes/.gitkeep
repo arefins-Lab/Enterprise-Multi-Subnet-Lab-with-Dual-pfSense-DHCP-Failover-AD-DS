@@ -1,1 +1,16 @@
+# Validation Checklist
 
+✅ Ping between subnets  
+✅ Domain join from 192.168.2.0/24  
+✅ DNS A + PTR records created  
+✅ DHCP failover status: Normal  
+✅ pfSense static routes working  
+✅ Client → Internet access  
+
+# IP Summary
+
+pfSense Edge: 192.168.1.1  
+pfSense Internal: 192.168.1.2 / 192.168.2.1  
+DC1: 192.168.1.10  
+DC2: 192.168.1.11  
+Client Subnet: 192.168.2.0/24  
