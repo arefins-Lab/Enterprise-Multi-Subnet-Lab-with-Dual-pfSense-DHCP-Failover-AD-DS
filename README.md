@@ -3,14 +3,7 @@ This project showcases a complete enterprise‑style multi‑subnet network arch
 
 Repository Structure
 Code
-\\\ pfsense-windows-enterprise-architecture/
-│── README.md
-│── diagrams/              # Network topology, routing flow, DHCP failover diagrams
-│── configs/               # pfSense Edge + Internal Router configuration files
-│── scripts/               # PowerShell automation scripts (AD, DNS, DHCP, Failover)
-└── notes/                 # Validation checklist, IP summary, documentation notes \\\
-
-
+\\\pfsense-windows-enterprise-architecture/ │── README.md │── diagrams/ # Network topology, routing flow, DHCP failover diagrams │── configs/ # pfSense Edge + Internal Router configuration files │── scripts/ # PowerShell automation scripts (AD, DNS, DHCP, Failover) └── notes/ # Validation checklist, IP summary, documentation notes \\\
 This structure mirrors real enterprise documentation standards, separating diagrams, configuration files, scripts, and operational notes for maximum clarity.
 Architecture Overview
 The network is designed following a layered enterprise model. The pfSense Edge Firewall provides perimeter security, NAT, and upstream routing. Behind it, the pfSense Internal Router handles segmentation and routing between multiple internal subnets. Core identity and addressing services are hosted on Windows Server, including Active Directory, DNS, and a fully configured DHCP failover pair. Client systems operate across two routed subnets, receiving centralized authentication, DNS resolution, and redundant DHCP services. This architecture reflects how modern organizations structure their internal networks for reliability and scalability.
