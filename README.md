@@ -24,7 +24,7 @@ Multiple subnets are routed through pfSense, enabling realistic multi‑segment 
 ---
 ## Network Diagram
 
-![Enterprise Multi-Subnet Lab Diagram](diagrams/Diagram.jpeg)
+![Enterprise Multi-Subnet Lab Diagram](diagrams/Diagram.jepg.png)
 
 This diagram illustrates the full multi-subnet architecture, including:
 - Dual pfSense routers (Edge + Internal)
@@ -32,6 +32,7 @@ This diagram illustrates the full multi-subnet architecture, including:
 - DHCP Failover scopes across subnets
 - Routed LAN 01 and LAN 02 segments
 - Client workstations with domain join and DNS resolution
+
 
 
 This diagram illustrates the full multi‑subnet architecture, including:
