@@ -3,12 +3,12 @@ This project showcases a complete enterprise‑style multi‑subnet network arch
 
 Repository Structure
 Code
-\\\pfsense-windows-enterprise-architecture/
+\\\ pfsense-windows-enterprise-architecture/
 │── README.md
 │── diagrams/              # Network topology, routing flow, DHCP failover diagrams
 │── configs/               # pfSense Edge + Internal Router configuration files
 │── scripts/               # PowerShell automation scripts (AD, DNS, DHCP, Failover)
-└── notes/                 # Validation checklist, IP summary, documentation notes\\\
+└── notes/                 # Validation checklist, IP summary, documentation notes \\\
 
 
 This structure mirrors real enterprise documentation standards, separating diagrams, configuration files, scripts, and operational notes for maximum clarity.
