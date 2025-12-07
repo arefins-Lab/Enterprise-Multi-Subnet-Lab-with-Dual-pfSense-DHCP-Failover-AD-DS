@@ -22,6 +22,16 @@ Windows Server provides centralized identity, DNS, and DHCP services.
 Multiple subnets are routed through pfSense, enabling realistic multi‑segment enterprise behaviour.
 
 ---
+## Network Diagram
+
+![Enterprise Multi-Subnet Lab Diagram](diagrams/your-diagram.png)
+
+This diagram illustrates the full multi‑subnet architecture, including:
+- pfSense Edge Router  
+- pfSense Internal Router  
+- Windows Server (AD DS, DNS, DHCP)  
+- Routed subnets  
+- Client network  
 
 ## Key Features
 
