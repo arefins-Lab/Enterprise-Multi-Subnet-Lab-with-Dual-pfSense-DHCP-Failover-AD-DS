@@ -24,7 +24,15 @@ Multiple subnets are routed through pfSense, enabling realistic multi‑segment 
 ---
 ## Network Diagram
 
-![Enterprise Multi-Subnet Lab Diagram](diagrams/your-diagram.png)
+![Enterprise Multi-Subnet Lab Diagram](diagrams/your-diagram.jpeg)
+
+This diagram illustrates the full multi-subnet architecture, including:
+- Dual pfSense routers (Edge + Internal)
+- Windows Server with AD DS, DNS, and DHCP
+- DHCP Failover scopes across subnets
+- Routed LAN 01 and LAN 02 segments
+- Client workstations with domain join and DNS resolution
+
 
 This diagram illustrates the full multi‑subnet architecture, including:
 - pfSense Edge Router  
