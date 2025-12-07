@@ -1,14 +1,15 @@
 Enterprise Multi‑Subnet Network Design & Implementation
 This project showcases a complete enterprise‑style multi‑subnet network architecture built using pfSense, Windows Server, and routed segmentation. The goal of this environment is to replicate real‑world infrastructure design, including perimeter security, internal routing, centralized identity services, DHCP failover, and multi‑subnet communication. Every component has been configured, validated, and documented with a workflow‑first approach to ensure clarity, reproducibility, and operational accuracy.
 
-Repository Structure
+## Repository Structure
+
 Code
 pfsense-windows-enterprise-architecture/ 
-///│── README.md
+│── README.md
 │── diagrams/ # Network topology, routing flow, DHCP failover diagrams 
 │── configs/ # pfSense Edge + Internal Router configuration files 
 │── scripts/ # PowerShell automation scripts (AD, DNS, DHCP, Failover) 
-└── notes/ # Validation checklist, IP summary, documentation notes///
+└── notes/ # Validation checklist, IP summary, documentation notes
 
 This structure mirrors real enterprise documentation standards, separating diagrams, configuration files, scripts, and operational notes for maximum clarity.
 Architecture Overview
