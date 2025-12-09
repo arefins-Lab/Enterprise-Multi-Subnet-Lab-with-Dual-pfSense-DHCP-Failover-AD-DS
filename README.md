@@ -1,6 +1,6 @@
-# Enterprise Multi‑Subnet Lab with Dual pfSense, DHCP Failover, and Active Directory Domain Services
+# Enterprise Multi‑Subnet Infrastructure with Dual pfSense, DHCP Failover & Active Directory Services
 
-This project demonstrates a complete enterprise‑grade multi‑subnet network architecture using dual pfSense routers, Windows Server‑based DHCP Failover, and Active Directory Domain Services (AD DS).  
+This project demonstrates a complete, enterprise-grade multi-subnet network architecture using dual pfSense routers, Windows Server-based DHCP Failover, and Active Directory Domain Services (AD DS).  
 The goal is to simulate a realistic production environment with routing, redundancy, centralized authentication, and automated network services — all running inside a fully isolated virtual lab.
 
 ## Objectives
